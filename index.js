@@ -26,12 +26,19 @@ async function run() {
       res.send(bills);
     })
 
-    // create add billing
+    // create  billing
     app.post('/api/add-billing', async (req, res) => {
       const billing = req.body;
       console.log(billing);
       const result = await billCollection.insertOne(billing);
       res.send(result)
+    })
+    // delete billing
+    app.delete('/api/delete-billing/:id', async (req, res) => {
+      const id = req.params.id;
+     const filter = {_id:ObjectId(id)}
+     const result = await billCollection.deleteOne(filter);
+     res.send(result)
     })
 
 
