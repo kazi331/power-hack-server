@@ -36,11 +36,19 @@ async function run() {
     // delete billing
     app.delete('/api/delete-billing/:id', async (req, res) => {
       const id = req.params.id;
-     const filter = {_id:ObjectId(id)}
-     const result = await billCollection.deleteOne(filter);
-     res.send(result)
+      const filter = { _id: ObjectId(id) }
+      const result = await billCollection.deleteOne(filter);
+      res.send(result)
     })
-
+    // update billing 
+    app.patch('/api/update-billing/:id', async (req, res) => {
+      const id = req.params.id;
+      const body = req.body;
+      const filter = { _id: ObjectId(id) }
+      const updateDoc = { $set: body }
+      const result = await billCollection.updateOne(filter, updateDoc);
+      res.send(result);
+    })
 
   }
   finally { }
